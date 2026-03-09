@@ -1,0 +1,3303 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+    <title>TOJI BODY PROGRAM</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --red: #c0392b;
+        --black: #0a0a0a;
+        --dark: #111111;
+        --card: #161616;
+        --border: #2a2a2a;
+        --text: #e8e8e8;
+        --muted: #777;
+        --gold: #d4a017;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--black);
+        color: var(--text);
+        font-family: "Inter", sans-serif;
+        overflow-x: hidden;
+        font-size: 14px;
+      }
+
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: rgba(10, 10, 10, 0.96);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border);
+        padding: 0 16px;
+        height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .nav-logo {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 20px;
+        color: var(--red);
+        letter-spacing: 2px;
+        flex-shrink: 0;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2px;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+      .nav-links::-webkit-scrollbar {
+        display: none;
+      }
+      .nav-links a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 10px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 6px 8px;
+        white-space: nowrap;
+        border-radius: 4px;
+        transition: all 0.2s;
+      }
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: white;
+        background: rgba(192, 57, 43, 0.2);
+      }
+
+      .hero {
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 80px 20px 60px;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+      }
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse 100% 60% at 50% 0%,
+            rgba(192, 57, 43, 0.2) 0%,
+            transparent 70%
+          ),
+          var(--black);
+      }
+      .hero-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 39px,
+            rgba(255, 255, 255, 0.015) 40px
+          ),
+          repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 39px,
+            rgba(255, 255, 255, 0.015) 40px
+          );
+      }
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        max-width: 600px;
+      }
+      .tag {
+        display: inline-block;
+        background: var(--red);
+        color: white;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 3px;
+        padding: 5px 14px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+      }
+      .hero-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(64px, 20vw, 160px);
+        line-height: 0.85;
+        color: white;
+        text-shadow: 0 0 60px rgba(192, 57, 43, 0.5);
+      }
+      .hero-title span {
+        display: block;
+        color: var(--red);
+        font-size: clamp(44px, 13vw, 110px);
+      }
+      .hero-sub {
+        font-size: 11px;
+        letter-spacing: 4px;
+        color: var(--muted);
+        margin-top: 16px;
+        text-transform: uppercase;
+      }
+      .hero-stats {
+        display: flex;
+        gap: 0;
+        margin-top: 40px;
+        border: 1px solid var(--border);
+      }
+      .stat {
+        flex: 1;
+        padding: 14px 6px;
+        text-align: center;
+        border-right: 1px solid var(--border);
+      }
+      .stat:last-child {
+        border-right: none;
+      }
+      .stat-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 34px;
+        color: var(--red);
+        line-height: 1;
+      }
+      .stat-label {
+        font-size: 9px;
+        letter-spacing: 1px;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-top: 3px;
+      }
+      .scroll-hint {
+        position: absolute;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        color: var(--muted);
+        font-size: 9px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        animation: bounce 2s infinite;
+      }
+      .scroll-arrow {
+        width: 16px;
+        height: 16px;
+        border-right: 2px solid var(--red);
+        border-bottom: 2px solid var(--red);
+        transform: rotate(45deg);
+      }
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateX(-50%) translateY(0);
+        }
+        50% {
+          transform: translateX(-50%) translateY(6px);
+        }
+      }
+
+      .section {
+        padding: 56px 16px;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      .section-header {
+        display: flex;
+        align-items: flex-end;
+        gap: 12px;
+        margin-bottom: 28px;
+      }
+      .section-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 52px;
+        color: var(--border);
+        line-height: 1;
+        flex-shrink: 0;
+      }
+      .section-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 28px;
+        letter-spacing: 2px;
+        color: white;
+      }
+      .section-title small {
+        display: block;
+        font-family: "Inter", sans-serif;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 3px;
+        color: var(--red);
+        text-transform: uppercase;
+        margin-bottom: 2px;
+      }
+      hr.divider {
+        border: none;
+        border-top: 1px solid var(--border);
+      }
+
+      .week-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 5px;
+        margin-bottom: 32px;
+      }
+      .day-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        padding: 10px 3px;
+        text-align: center;
+      }
+      .day-card.active {
+        border-color: var(--red);
+        background: rgba(192, 57, 43, 0.07);
+      }
+      .day-card.rest {
+        opacity: 0.4;
+      }
+      .day-name {
+        font-size: 8px;
+        letter-spacing: 1px;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-bottom: 5px;
+      }
+      .day-focus {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 12px;
+        color: white;
+        line-height: 1.1;
+      }
+      .day-card.active .day-focus {
+        color: var(--red);
+      }
+      .day-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--border);
+        margin: 5px auto 0;
+      }
+      .day-card.active .day-dot {
+        background: var(--red);
+      }
+
+      .workout-day {
+        margin-bottom: 24px;
+        border: 1px solid var(--border);
+        overflow: hidden;
+      }
+      .workout-day-header {
+        background: var(--red);
+        padding: 13px 16px;
+      }
+      .workout-day-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 19px;
+        letter-spacing: 1px;
+      }
+      .workout-day-meta {
+        font-size: 10px;
+        letter-spacing: 1px;
+        opacity: 0.85;
+        text-transform: uppercase;
+        margin-top: 2px;
+      }
+
+      .exercise-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        background: var(--border);
+      }
+      .exercise-item {
+        background: var(--card);
+      }
+      .exercise-toggle {
+        width: 100%;
+        padding: 13px 14px;
+        background: none;
+        border: none;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        cursor: pointer;
+        text-align: left;
+      }
+      .ex-num-s {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 26px;
+        color: var(--border);
+        width: 26px;
+        flex-shrink: 0;
+        line-height: 1;
+      }
+      .ex-ti {
+        flex: 1;
+      }
+      .ex-name {
+        font-weight: 600;
+        font-size: 13px;
+        color: white;
+      }
+      .ex-sets-s {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 15px;
+        color: var(--red);
+        margin-top: 1px;
+      }
+      .ex-chev {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        transition: transform 0.3s;
+        color: var(--muted);
+      }
+      .exercise-item.open .ex-chev {
+        transform: rotate(180deg);
+      }
+      .ex-body {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s ease;
+      }
+      .exercise-item.open .ex-body {
+        max-height: 500px;
+      }
+      .ex-body-in {
+        padding: 0 14px 16px 52px;
+      }
+      .ex-desc {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.7;
+        margin-bottom: 10px;
+      }
+      .ex-target {
+        display: inline-block;
+        background: rgba(192, 57, 43, 0.15);
+        border: 1px solid rgba(192, 57, 43, 0.3);
+        color: var(--red);
+        font-size: 9px;
+        letter-spacing: 1px;
+        padding: 2px 8px;
+        text-transform: uppercase;
+      }
+      .how-to {
+        margin-top: 12px;
+        border-top: 1px solid var(--border);
+        padding-top: 12px;
+      }
+      .how-to-title {
+        font-size: 10px;
+        letter-spacing: 2px;
+        color: var(--red);
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+      .how-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+      }
+      .how-step {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .how-sn {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 17px;
+        color: var(--red);
+        width: 16px;
+        flex-shrink: 0;
+        line-height: 1.2;
+      }
+      .how-st {
+        font-size: 11px;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+      .how-st strong {
+        color: var(--text);
+      }
+
+      .jaw-intro {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-left: 3px solid var(--gold);
+        padding: 14px;
+        margin-bottom: 24px;
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+      .jaw-intro strong {
+        color: white;
+      }
+
+      .jaw-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-top: 3px solid var(--gold);
+        margin-bottom: 12px;
+        overflow: hidden;
+      }
+      .jaw-head {
+        padding: 14px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+      }
+      .jaw-num {
+        width: 38px;
+        height: 38px;
+        background: var(--gold);
+        color: black;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .jaw-info {
+        flex: 1;
+      }
+      .jaw-name {
+        font-weight: 700;
+        font-size: 14px;
+        color: white;
+      }
+      .jaw-freq {
+        font-size: 10px;
+        color: var(--gold);
+        margin-top: 2px;
+        letter-spacing: 1px;
+      }
+      .jaw-chev {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        transition: transform 0.3s;
+        color: var(--muted);
+      }
+      .jaw-card.open .jaw-chev {
+        transform: rotate(180deg);
+      }
+      .jaw-body {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+      }
+      .jaw-card.open .jaw-body {
+        max-height: 900px;
+      }
+      .jaw-body-in {
+        padding: 0 14px 18px;
+      }
+
+      .jaw-visual {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--border);
+        padding: 14px;
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 110px;
+      }
+      .jaw-visual svg {
+        max-width: 200px;
+        width: 100%;
+      }
+
+      .jaw-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+        margin-bottom: 12px;
+      }
+      .jaw-do {
+        display: flex;
+        gap: 9px;
+        align-items: flex-start;
+      }
+      .jaw-dn {
+        width: 20px;
+        height: 20px;
+        background: var(--gold);
+        color: black;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 13px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+      }
+      .jaw-dt {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.7;
+        padding-top: 1px;
+      }
+      .jaw-dt strong {
+        color: var(--text);
+      }
+      .jaw-tip {
+        background: rgba(212, 160, 23, 0.08);
+        border: 1px solid rgba(212, 160, 23, 0.2);
+        padding: 9px 12px;
+        font-size: 11px;
+        color: var(--gold);
+        line-height: 1.6;
+      }
+      .jaw-tip::before {
+        content: "💡 TIP: ";
+        font-weight: 700;
+      }
+      .jaw-err {
+        background: rgba(192, 57, 43, 0.08);
+        border: 1px solid rgba(192, 57, 43, 0.2);
+        padding: 9px 12px;
+        font-size: 11px;
+        color: #e74c3c;
+        line-height: 1.6;
+        margin-top: 8px;
+      }
+      .jaw-err::before {
+        content: "❌ MISTAKE: ";
+        font-weight: 700;
+      }
+
+      .nutrition-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 9px;
+        margin-bottom: 20px;
+      }
+      @media (min-width: 480px) {
+        .nutrition-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      .nutrition-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        padding: 13px;
+      }
+      .nut-icon {
+        font-size: 22px;
+        margin-bottom: 7px;
+      }
+      .nut-title {
+        font-weight: 700;
+        font-size: 12px;
+        color: white;
+        margin-bottom: 5px;
+      }
+      .nut-text {
+        font-size: 11px;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      .timeline {
+        position: relative;
+        padding-left: 26px;
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 5px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(to bottom, var(--red), var(--border));
+      }
+      .tl-item {
+        position: relative;
+        margin-bottom: 24px;
+      }
+      .tl-dot {
+        position: absolute;
+        left: -22px;
+        top: 4px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--red);
+        border: 2px solid var(--black);
+      }
+      .tl-month {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 19px;
+        color: var(--red);
+        letter-spacing: 2px;
+        margin-bottom: 3px;
+      }
+      .tl-text {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+      .tl-text strong {
+        color: var(--text);
+      }
+
+      .footer {
+        background: var(--dark);
+        border-top: 1px solid var(--border);
+        padding: 40px 16px;
+        text-align: center;
+      }
+      .footer-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 24px;
+        letter-spacing: 4px;
+        color: var(--red);
+        margin-bottom: 8px;
+      }
+      .footer-text {
+        font-size: 11px;
+        color: var(--muted);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      .info-box {
+        background: rgba(192, 57, 43, 0.07);
+        border: 1px solid var(--red);
+        padding: 14px;
+        margin-bottom: 24px;
+      }
+      .info-box h3 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 18px;
+        color: var(--red);
+        margin-bottom: 7px;
+        letter-spacing: 1px;
+      }
+      .info-box p {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+      .info-box strong {
+        color: var(--text);
+      }
+
+      .sets-box {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-left: 3px solid var(--red);
+        padding: 14px;
+        margin-bottom: 24px;
+      }
+      .sets-box h3 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 17px;
+        color: white;
+        margin-bottom: 10px;
+      }
+      .sets-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 8px;
+      }
+      .sets-badge {
+        background: var(--red);
+        color: white;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 17px;
+        padding: 3px 10px;
+        flex-shrink: 0;
+      }
+      .sets-explain {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+      .sets-explain strong {
+        color: var(--text);
+      }
+
+      .target-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-bottom: 28px;
+      }
+      .tg-item {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-left: 3px solid var(--red);
+        padding: 11px;
+      }
+      .tg-item strong {
+        display: block;
+        color: white;
+        font-size: 12px;
+        margin-bottom: 2px;
+      }
+      .tg-item span {
+        color: var(--muted);
+        font-size: 11px;
+        line-height: 1.5;
+      }
+
+      .jaw-tl {
+        background: var(--card);
+        border: 1px solid var(--border);
+        padding: 14px;
+        margin-top: 8px;
+      }
+      .jaw-tl-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 17px;
+        color: var(--gold);
+        letter-spacing: 2px;
+        margin-bottom: 12px;
+      }
+      .jaw-tl-row {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      .jaw-tl-month {
+        font-family: "Bebas Neue", sans-serif;
+        color: var(--red);
+        font-size: 15px;
+        width: 58px;
+        flex-shrink: 0;
+      }
+      .jaw-tl-text {
+        font-size: 11px;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-logo">TOJI</div>
+      <div class="nav-links">
+        <a href="#schedule">Schedule</a>
+        <a href="#workouts">Workouts</a>
+        <a href="#jawline">Jawline</a>
+        <a href="#nutrition">Nutrition</a>
+        <a href="#progress">Progress</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-grid"></div>
+      <div class="hero-content">
+        <div class="tag">No Cursed Energy. Pure Physical Dominance.</div>
+        <h1 class="hero-title">TOJI<span>BODY</span>PROGRAM</h1>
+        <p class="hero-sub">Zero Equipment · Home Training · 90 Days</p>
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="stat-num">6</div>
+            <div class="stat-label">Days/Wk</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">45</div>
+            <div class="stat-label">Min/Day</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">90</div>
+            <div class="stat-label">Days</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">0</div>
+            <div class="stat-label">Equipment</div>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-hint">
+        Scroll
+        <div class="scroll-arrow"></div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <section class="section" style="padding-bottom: 16px">
+      <div class="sets-box">
+        <h3>📖 What does "4 × 15 reps" mean?</h3>
+        <div class="sets-row">
+          <div class="sets-badge">4</div>
+          <div class="sets-explain">
+            <strong>Sets</strong> — do the exercise, rest, repeat 4 times total.
+          </div>
+        </div>
+        <div class="sets-row">
+          <div class="sets-badge">15</div>
+          <div class="sets-explain">
+            <strong>Reps</strong> — how many times you do the movement in one
+            set.
+          </div>
+        </div>
+        <p
+          style="
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 8px;
+            line-height: 1.7;
+          "
+        >
+          Example: <strong style="color: white">4 × 15 push-ups</strong> = Do 15
+          push-ups → Rest 60 sec → Do 15 again → Repeat 4 times total.
+        </p>
+      </div>
+      <div class="info-box">
+        <h3>⚠️ WEEKS 1–2: START AT HALF VOLUME</h3>
+        <p>
+          You rested for 1 year.
+          <strong>Do NOT start at full volume.</strong> First 2 weeks: do
+          <strong>2 sets instead of 4</strong>, and
+          <strong>8–10 reps instead of 15–20</strong>. Rest 90 sec between sets.
+          From Week 3, go full. This prevents injury and prevents quitting from
+          extreme soreness.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="targets" style="padding-top: 16px">
+      <div class="section-header">
+        <div class="section-num">01</div>
+        <div class="section-title"><small>The Goal</small>Target Areas</div>
+      </div>
+      <div class="target-grid">
+        <div class="tg-item">
+          <strong>Lean Chest</strong><span>Defined pecs without bulk</span>
+        </div>
+        <div class="tg-item">
+          <strong>Sharp Shoulders</strong
+          ><span>Boulder caps — Toji's signature</span>
+        </div>
+        <div class="tg-item">
+          <strong>Visible Abs</strong><span>Reduce belly + build core</span>
+        </div>
+        <div class="tg-item">
+          <strong>Veiny Forearms</strong><span>Low fat + grip training</span>
+        </div>
+        <div class="tg-item">
+          <strong>Wide Back</strong><span>V-taper foundation</span>
+        </div>
+        <div class="tg-item">
+          <strong>Lean Glutes</strong><span>Fix sitting damage</span>
+        </div>
+        <div class="tg-item">
+          <strong>Sharp Jaw</strong><span>Mewing + training + low fat</span>
+        </div>
+        <div class="tg-item">
+          <strong>Thick Neck</strong><span>Dominant silhouette</span>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <section class="section" id="schedule">
+      <div class="section-header">
+        <div class="section-num">02</div>
+        <div class="section-title"><small>Structure</small>Weekly Plan</div>
+      </div>
+      <div class="week-grid">
+        <div class="day-card active">
+          <div class="day-name">Mon</div>
+          <div class="day-focus">PUSH</div>
+          <div class="day-dot"></div>
+        </div>
+        <div class="day-card active">
+          <div class="day-name">Tue</div>
+          <div class="day-focus">LEGS</div>
+          <div class="day-dot"></div>
+        </div>
+        <div class="day-card active">
+          <div class="day-name">Wed</div>
+          <div class="day-focus">PULL</div>
+          <div class="day-dot"></div>
+        </div>
+        <div class="day-card rest">
+          <div class="day-name">Thu</div>
+          <div class="day-focus">REST</div>
+          <div class="day-dot"></div>
+        </div>
+        <div class="day-card active">
+          <div class="day-name">Fri</div>
+          <div class="day-focus">CORE</div>
+          <div class="day-dot"></div>
+        </div>
+        <div class="day-card active">
+          <div class="day-name">Sat</div>
+          <div class="day-focus">FULL</div>
+          <div class="day-dot"></div>
+        </div>
+        <div class="day-card active">
+          <div class="day-name">Sun</div>
+          <div class="day-focus">JAW</div>
+          <div class="day-dot"></div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <section class="section" id="workouts">
+      <div class="section-header">
+        <div class="section-num">03</div>
+        <div class="section-title"><small>Training</small>Daily Workouts</div>
+      </div>
+      <p style="font-size: 12px; color: var(--muted); margin-bottom: 20px">
+        👆 Tap any exercise to see full step-by-step instructions.
+      </p>
+
+      <!-- MONDAY -->
+      <div class="workout-day">
+        <div class="workout-day-header">
+          <div class="workout-day-title">Monday — PUSH</div>
+          <div class="workout-day-meta">
+            Chest · Shoulders · Triceps · 45 min
+          </div>
+        </div>
+        <div class="exercise-list">
+          <div class="exercise-item">
+            <button class="exercise-toggle" onclick="tog(this)">
+              <div class="ex-num-s">01</div>
+              <div class="ex-ti">
+                <div class="ex-name">Wide Push-ups</div>
+                <div class="ex-sets-s">4 × 15–20 reps</div>
+              </div>
+              <svg
+                class="ex-chev"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="ex-body">
+              <div class="ex-body-in">
+                <p class="ex-desc">
+                  Builds the outer chest line. Hands wider than shoulders. Chest
+                  must touch ground every rep. Slow 3-second descent, explode
+                  up.
+                </p>
+                <span class="ex-target">Outer Chest</span>
+                <div class="how-to">
+                  <div class="how-to-title">How To Do It</div>
+                  <div class="how-steps">
+                    <div class="how-step">
+                      <div class="how-sn">1</div>
+                      <div class="how-st">
+                        Place hands <strong>6–8 inches wider</strong> than your
+                        shoulders on the floor
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">2</div>
+                      <div class="how-st">
+                        Body <strong>straight like a plank</strong> — don't let
+                        hips sag or rise
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">3</div>
+                      <div class="how-st">
+                        Lower chest <strong>slowly (3 seconds)</strong> until it
+                        touches floor
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">4</div>
+                      <div class="how-st">
+                        <strong>Explode upward</strong> back to start. That is 1
+                        rep.
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">5</div>
+                      <div class="how-st">
+                        Rest <strong>60–90 seconds</strong> then do next set
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <button class="exercise-toggle" onclick="tog(this)">
+              <div class="ex-num-s">02</div>
+              <div class="ex-ti">
+                <div class="ex-name">Diamond Push-ups</div>
+                <div class="ex-sets-s">4 × 10–15 reps</div>
+              </div>
+              <svg
+                class="ex-chev"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="ex-body">
+              <div class="ex-body-in">
+                <p class="ex-desc">
+                  Creates the chest split line down the middle. Also builds
+                  triceps to remove arm flab.
+                </p>
+                <span class="ex-target">Inner Chest + Triceps</span>
+                <div class="how-to">
+                  <div class="how-to-title">How To Do It</div>
+                  <div class="how-steps">
+                    <div class="how-step">
+                      <div class="how-sn">1</div>
+                      <div class="how-st">
+                        Touch
+                        <strong>index fingers and thumbs together</strong> to
+                        form a diamond shape
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">2</div>
+                      <div class="how-st">
+                        Place diamond
+                        <strong>directly under your chest</strong>, not under
+                        your face
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">3</div>
+                      <div class="how-st">
+                        Lower chest to hands. Elbows point
+                        <strong>backward not sideways</strong>
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">4</div>
+                      <div class="how-st">
+                        Press back up.
+                        <strong>Too hard? Drop knees to floor</strong> — that is
+                        fine for now
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <button class="exercise-toggle" onclick="tog(this)">
+              <div class="ex-num-s">03</div>
+              <div class="ex-ti">
+                <div class="ex-name">Pike Push-ups</div>
+                <div class="ex-sets-s">4 × 12 reps</div>
+              </div>
+              <svg
+                class="ex-chev"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="ex-body">
+              <div class="ex-body-in">
+                <p class="ex-desc">
+                  The shoulder cap builder. This is what gives Toji those round
+                  intimidating shoulders. The key exercise of the push day.
+                </p>
+                <span class="ex-target">Shoulders</span>
+                <div class="how-to">
+                  <div class="how-to-title">How To Do It</div>
+                  <div class="how-steps">
+                    <div class="how-step">
+                      <div class="how-sn">1</div>
+                      <div class="how-st">
+                        Start in push-up position.
+                        <strong>Walk feet toward hands</strong> until hips are
+                        high in air — like an upside down V
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">2</div>
+                      <div class="how-st">
+                        Head hanging
+                        <strong>between arms looking at feet</strong>
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">3</div>
+                      <div class="how-st">
+                        Bend elbows and
+                        <strong>lower top of head toward floor</strong>
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">4</div>
+                      <div class="how-st">
+                        <strong>Press back up</strong> to the V position. That
+                        is 1 rep.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <button class="exercise-toggle" onclick="tog(this)">
+              <div class="ex-num-s">04</div>
+              <div class="ex-ti">
+                <div class="ex-name">Decline Push-ups</div>
+                <div class="ex-sets-s">3 × 12 reps</div>
+              </div>
+              <svg
+                class="ex-chev"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="ex-body">
+              <div class="ex-body-in">
+                <p class="ex-desc">
+                  Feet elevated on bed or chair. Targets upper chest. Gives the
+                  thick upper shelf that shows through a shirt.
+                </p>
+                <span class="ex-target">Upper Chest</span>
+                <div class="how-to">
+                  <div class="how-to-title">How To Do It</div>
+                  <div class="how-steps">
+                    <div class="how-step">
+                      <div class="how-sn">1</div>
+                      <div class="how-st">
+                        Put both feet on
+                        <strong>chair or bed edge</strong> behind you
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">2</div>
+                      <div class="how-st">
+                        Hands on floor shoulder width.
+                        <strong>Body angles downward</strong>
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">3</div>
+                      <div class="how-st">
+                        Lower chest to floor and
+                        <strong>press back up</strong> — same as normal push-up
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <button class="exercise-toggle" onclick="tog(this)">
+              <div class="ex-num-s">05</div>
+              <div class="ex-ti">
+                <div class="ex-name">Tricep Dips</div>
+                <div class="ex-sets-s">4 × 15 reps</div>
+              </div>
+              <svg
+                class="ex-chev"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="ex-body">
+              <div class="ex-body-in">
+                <p class="ex-desc">
+                  Removes flab from back of arms, defines triceps. Use any
+                  sturdy chair, table edge, or bed edge.
+                </p>
+                <span class="ex-target">Triceps</span>
+                <div class="how-to">
+                  <div class="how-to-title">How To Do It</div>
+                  <div class="how-steps">
+                    <div class="how-step">
+                      <div class="how-sn">1</div>
+                      <div class="how-st">
+                        Sit on chair edge. <strong>Place hands on edge</strong>,
+                        fingers pointing forward
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">2</div>
+                      <div class="how-st">
+                        <strong>Slide body off chair</strong>, supporting
+                        yourself with arms straight
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">3</div>
+                      <div class="how-st">
+                        Lower until elbows hit <strong>90 degrees</strong>.
+                        Don't go lower.
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">4</div>
+                      <div class="how-st">
+                        <strong>Press back up.</strong> Elbows point backward
+                        not sideways.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TUESDAY -->
+      <div class="workout-day">
+        <div class="workout-day-header">
+          <div class="workout-day-title">Tuesday — LEGS + GLUTES</div>
+          <div class="workout-day-meta">
+            Fix sitting damage · Reduce butt fat · 45 min
+          </div>
+        </div>
+        <div class="exercise-list">
+          <div class="exercise-item">
+            <button class="exercise-toggle" onclick="tog(this)">
+              <div class="ex-num-s">01</div>
+              <div class="ex-ti">
+                <div class="ex-name">Hip Thrusts</div>
+                <div class="ex-sets-s">4 × 20 reps — Most Important</div>
+              </div>
+              <svg
+                class="ex-chev"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="ex-body">
+              <div class="ex-body-in">
+                <p class="ex-desc">
+                  Your #1 exercise for the butt problem. After 1 year sitting,
+                  your glute muscles are switched off. This reactivates them. In
+                  2–3 weeks you will feel them turn on. Also reshapes and firms
+                  the butt rather than keeping it soft and big.
+                </p>
+                <span class="ex-target">Glutes — Fix Sitting Damage</span>
+                <div class="how-to">
+                  <div class="how-to-title">How To Do It</div>
+                  <div class="how-steps">
+                    <div class="how-step">
+                      <div class="how-sn">1</div>
+                      <div class="how-st">
+                        Sit on floor. Place
+                        <strong>upper back on edge of bed or sofa</strong>
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">2</div>
+                      <div class="how-st">
+                        Feet flat on floor,
+                        <strong>knees bent at 90 degrees</strong>
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">3</div>
+                      <div class="how-st">
+                        Drive hips <strong>straight up</strong> by squeezing
+                        butt as hard as possible
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">4</div>
+                      <div class="how-st">
+                        <strong>Hold 1 second at top</strong> squeezing glutes
+                        maximum. Then lower slowly.
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">5</div>
+                      <div class="how-st">
+                        Should feel it in <strong>glutes only</strong> — not
+                        lower back. If lower back hurts, push through your heels
+                        more.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <button class="exercise-toggle" onclick="tog(this)">
+              <div class="ex-num-s">02</div>
+              <div class="ex-ti">
+                <div class="ex-name">Bulgarian Split Squats</div>
+                <div class="ex-sets-s">4 × 12 each leg</div>
+              </div>
+              <svg
+                class="ex-chev"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="ex-body">
+              <div class="ex-body-in">
+                <p class="ex-desc">
+                  Burns fat directly from glute area while building lean muscle
+                  shape. Will feel very hard at first — that is normal. This is
+                  your butt fat reducer.
+                </p>
+                <span class="ex-target">Glutes + Quads</span>
+                <div class="how-to">
+                  <div class="how-to-title">How To Do It</div>
+                  <div class="how-steps">
+                    <div class="how-step">
+                      <div class="how-sn">1</div>
+                      <div class="how-st">
+                        Stand in front of chair.
+                        <strong>Place one foot behind you on the chair</strong>
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">2</div>
+                      <div class="how-st">
+                        Front foot far enough that when you lower,
+                        <strong>front knee stays above ankle</strong>
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">3</div>
+                      <div class="how-st">
+                        Lower body <strong>straight down</strong> until back
+                        knee nearly touches floor
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">4</div>
+                      <div class="how-st">
+                        Push through <strong>front heel</strong> to stand up. Do
+                        all reps one leg then switch.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <button class="exercise-toggle" onclick="tog(this)">
+              <div class="ex-num-s">03</div>
+              <div class="ex-ti">
+                <div class="ex-name">Jump Squats</div>
+                <div class="ex-sets-s">4 × 20 reps</div>
+              </div>
+              <svg
+                class="ex-chev"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="ex-body">
+              <div class="ex-body-in">
+                <p class="ex-desc">
+                  Burns maximum fat from legs and glutes. The cardio element is
+                  what reduces lower body fat quickly.
+                </p>
+                <span class="ex-target">Legs + Fat Burn</span>
+                <div class="how-to">
+                  <div class="how-to-title">How To Do It</div>
+                  <div class="how-steps">
+                    <div class="how-step">
+                      <div class="how-sn">1</div>
+                      <div class="how-st">
+                        Feet shoulder width. <strong>Squat down</strong> until
+                        thighs parallel to floor
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">2</div>
+                      <div class="how-st">
+                        <strong>Explode upward</strong> as high as you can —
+                        leave the ground
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">3</div>
+                      <div class="how-st">
+                        <strong>Land softly</strong> by bending knees — protect
+                        your joints
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">4</div>
+                      <div class="how-st">
+                        Go straight into next squat without stopping
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <button class="exercise-toggle" onclick="tog(this)">
+              <div class="ex-num-s">04</div>
+              <div class="ex-ti">
+                <div class="ex-name">Wall Sit</div>
+                <div class="ex-sets-s">4 × 45 seconds</div>
+              </div>
+              <svg
+                class="ex-chev"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="ex-body">
+              <div class="ex-body-in">
+                <p class="ex-desc">
+                  Builds lean quad endurance for the athletic leg look. Looks
+                  simple. Burns intensely.
+                </p>
+                <span class="ex-target">Quads</span>
+                <div class="how-to">
+                  <div class="how-to-title">How To Do It</div>
+                  <div class="how-steps">
+                    <div class="how-step">
+                      <div class="how-sn">1</div>
+                      <div class="how-st">
+                        <strong>Back flat against wall</strong>
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">2</div>
+                      <div class="how-st">
+                        Slide down until
+                        <strong>thighs are parallel to floor</strong> — like
+                        sitting on invisible chair
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">3</div>
+                      <div class="how-st">
+                        <strong>Hold 45 seconds.</strong> Do not let thighs rise
+                        when it burns. That burn is the point.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WEDNESDAY -->
+      <div class="workout-day">
+        <div class="workout-day-header">
+          <div class="workout-day-title">Wednesday — PULL + BACK</div>
+          <div class="workout-day-meta">
+            V-taper builder · Biceps · Forearm veins · 45 min
+          </div>
+        </div>
+        <div class="exercise-list">
+          <div class="exercise-item">
+            <button class="exercise-toggle" onclick="tog(this)">
+              <div class="ex-num-s">01</div>
+              <div class="ex-ti">
+                <div class="ex-name">Table Rows</div>
+                <div class="ex-sets-s">4 × 15 reps</div>
+              </div>
+              <svg
+                class="ex-chev"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="ex-body">
+              <div class="ex-body-in">
+                <p class="ex-desc">
+                  Best home back exercise. Lie under table and pull chest up to
+                  it. This builds the wide back responsible for the V-taper
+                  look.
+                </p>
+                <span class="ex-target">Back + Lats</span>
+                <div class="how-to">
+                  <div class="how-to-title">How To Do It</div>
+                  <div class="how-steps">
+                    <div class="how-step">
+                      <div class="how-sn">1</div>
+                      <div class="how-st">
+                        Lie under a <strong>sturdy table</strong>. Grab edge
+                        with both hands shoulder width apart
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">2</div>
+                      <div class="how-st">
+                        Body <strong>straight like a plank</strong>, heels on
+                        floor
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">3</div>
+                      <div class="how-st">
+                        <strong>Pull your chest up to the table</strong>,
+                        squeezing shoulder blades together at top
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">4</div>
+                      <div class="how-st">
+                        Lower <strong>slowly back down (3 seconds)</strong>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <button class="exercise-toggle" onclick="tog(this)">
+              <div class="ex-num-s">02</div>
+              <div class="ex-ti">
+                <div class="ex-name">Superman Hold</div>
+                <div class="ex-sets-s">4 × 15 reps</div>
+              </div>
+              <svg
+                class="ex-chev"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="ex-body">
+              <div class="ex-body-in">
+                <p class="ex-desc">
+                  Fixes the bad posture from 1 year sitting. Builds lower back.
+                  After 4 weeks your posture will be noticeably better — which
+                  itself makes your whole body look more defined.
+                </p>
+                <span class="ex-target">Lower Back + Posture</span>
+                <div class="how-to">
+                  <div class="how-to-title">How To Do It</div>
+                  <div class="how-steps">
+                    <div class="how-step">
+                      <div class="how-sn">1</div>
+                      <div class="how-st">
+                        Lie face down on floor.
+                        <strong>Arms stretched forward</strong> above your head
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">2</div>
+                      <div class="how-st">
+                        Simultaneously lift
+                        <strong>chest, arms, AND legs</strong> off the floor
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">3</div>
+                      <div class="how-st">
+                        <strong>Hold 2 seconds</strong> at top squeezing lower
+                        back and glutes
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">4</div>
+                      <div class="how-st">
+                        Lower everything back down. That is 1 rep.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <button class="exercise-toggle" onclick="tog(this)">
+              <div class="ex-num-s">03</div>
+              <div class="ex-ti">
+                <div class="ex-name">Towel Bicep Curls</div>
+                <div class="ex-sets-s">4 × 12 reps</div>
+              </div>
+              <svg
+                class="ex-chev"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="ex-body">
+              <div class="ex-body-in">
+                <p class="ex-desc">
+                  Builds the bicep peak. Veins in your hands appear as biceps
+                  grow and body fat drops — both happen from this exercise.
+                </p>
+                <span class="ex-target">Biceps + Forearms</span>
+                <div class="how-to">
+                  <div class="how-to-title">How To Do It</div>
+                  <div class="how-steps">
+                    <div class="how-step">
+                      <div class="how-sn">1</div>
+                      <div class="how-st">
+                        Sit in chair.
+                        <strong>Loop towel under one foot</strong>, hold both
+                        ends with same-side hand
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">2</div>
+                      <div class="how-st">
+                        <strong>Curl hand upward</strong> toward shoulder while
+                        foot pushes DOWN as resistance
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">3</div>
+                      <div class="how-st">
+                        Lower <strong>very slowly (4 seconds)</strong> — this
+                        slow part builds the most muscle
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">4</div>
+                      <div class="how-st">All reps one arm, then switch</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <button class="exercise-toggle" onclick="tog(this)">
+              <div class="ex-num-s">04</div>
+              <div class="ex-ti">
+                <div class="ex-name">Wrist Curls</div>
+                <div class="ex-sets-s">4 × 25 reps — Do daily</div>
+              </div>
+              <svg
+                class="ex-chev"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="ex-body">
+              <div class="ex-body-in">
+                <p class="ex-desc">
+                  The #1 exercise for visible forearm veins. Do this every day
+                  including rest days. Use anything heavy — water bottle, rice
+                  bag, anything.
+                </p>
+                <span class="ex-target">Forearms + Vascularity</span>
+                <div class="how-to">
+                  <div class="how-to-title">How To Do It</div>
+                  <div class="how-steps">
+                    <div class="how-step">
+                      <div class="how-sn">1</div>
+                      <div class="how-st">
+                        Sit. Place <strong>forearms on thighs</strong>, wrists
+                        hanging off knees
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">2</div>
+                      <div class="how-st">
+                        Hold water bottle.
+                        <strong>Curl wrists upward</strong> as far as possible
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">3</div>
+                      <div class="how-st">
+                        Lower past neutral letting wrist
+                        <strong>extend downward</strong> too
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">4</div>
+                      <div class="how-st">
+                        Do 25 reps. High rep = forearm pump = veins.
+                        <strong>Do this every single day.</strong>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FRIDAY -->
+      <div class="workout-day">
+        <div class="workout-day-header">
+          <div class="workout-day-title">Friday — CORE + ABS</div>
+          <div class="workout-day-meta">Belly fat destroyer · 40 min</div>
+        </div>
+        <div class="exercise-list">
+          <div class="exercise-item">
+            <button class="exercise-toggle" onclick="tog(this)">
+              <div class="ex-num-s">01</div>
+              <div class="ex-ti">
+                <div class="ex-name">Plank</div>
+                <div class="ex-sets-s">5 × 45–60 sec</div>
+              </div>
+              <svg
+                class="ex-chev"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="ex-body">
+              <div class="ex-body-in">
+                <p class="ex-desc">
+                  Foundation of all core work. If you cannot do 45 seconds,
+                  start at 20 and build up each week.
+                </p>
+                <span class="ex-target">Full Core</span>
+                <div class="how-to">
+                  <div class="how-to-title">How To Do It</div>
+                  <div class="how-steps">
+                    <div class="how-step">
+                      <div class="how-sn">1</div>
+                      <div class="how-st">
+                        <strong>Forearms on floor</strong>, elbows under
+                        shoulders
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">2</div>
+                      <div class="how-st">
+                        Lift body so only forearms and toes touch.
+                        <strong>Body completely straight.</strong>
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">3</div>
+                      <div class="how-st">
+                        Don't let hips sag or rise.
+                        <strong>Squeeze abs and glutes the whole time.</strong>
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">4</div>
+                      <div class="how-st">
+                        Hold 45–60 sec. <strong>Breathe normally.</strong>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <button class="exercise-toggle" onclick="tog(this)">
+              <div class="ex-num-s">02</div>
+              <div class="ex-ti">
+                <div class="ex-name">Bicycle Crunches</div>
+                <div class="ex-sets-s">4 × 20 each side</div>
+              </div>
+              <svg
+                class="ex-chev"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="ex-body">
+              <div class="ex-body-in">
+                <p class="ex-desc">
+                  Hits the obliques — the side cuts that make abs look sharp. Go
+                  slow, feel the rotation in your waist.
+                </p>
+                <span class="ex-target">Obliques + Abs</span>
+                <div class="how-to">
+                  <div class="how-to-title">How To Do It</div>
+                  <div class="how-steps">
+                    <div class="how-step">
+                      <div class="how-sn">1</div>
+                      <div class="how-st">
+                        Lie on back, <strong>hands lightly behind head</strong>,
+                        feet raised with knees bent
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">2</div>
+                      <div class="how-st">
+                        Bring <strong>right elbow to left knee</strong> while
+                        extending right leg straight
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">3</div>
+                      <div class="how-st">
+                        Switch — <strong>left elbow to right knee</strong>. That
+                        is 1 rep each side.
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">4</div>
+                      <div class="how-st">
+                        <strong>Go slow</strong> — feel the rotation in your
+                        waist, not just elbows moving
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <button class="exercise-toggle" onclick="tog(this)">
+              <div class="ex-num-s">03</div>
+              <div class="ex-ti">
+                <div class="ex-name">Leg Raises</div>
+                <div class="ex-sets-s">4 × 15 reps</div>
+              </div>
+              <svg
+                class="ex-chev"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="ex-body">
+              <div class="ex-body-in">
+                <p class="ex-desc">
+                  Destroys lower belly fat — the most stubborn area. The slow
+                  lowering is where 80% of the work happens. Never let feet
+                  touch between reps.
+                </p>
+                <span class="ex-target">Lower Abs</span>
+                <div class="how-to">
+                  <div class="how-to-title">How To Do It</div>
+                  <div class="how-steps">
+                    <div class="how-step">
+                      <div class="how-sn">1</div>
+                      <div class="how-st">
+                        Lie flat on back.
+                        <strong>Hands under your hips</strong> (protects lower
+                        back)
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">2</div>
+                      <div class="how-st">
+                        Raise
+                        <strong>straight legs to 90 degrees</strong> (pointing
+                        at ceiling)
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">3</div>
+                      <div class="how-st">
+                        Lower legs <strong>slowly (4 seconds)</strong> — stop
+                        just before touching floor
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">4</div>
+                      <div class="how-st">
+                        <strong>Never let feet touch</strong> until set is done.
+                        Then rest.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <button class="exercise-toggle" onclick="tog(this)">
+              <div class="ex-num-s">04</div>
+              <div class="ex-ti">
+                <div class="ex-name">Mountain Climbers</div>
+                <div class="ex-sets-s">4 × 30 sec max effort</div>
+              </div>
+              <svg
+                class="ex-chev"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="ex-body">
+              <div class="ex-body-in">
+                <p class="ex-desc">
+                  Cardio AND abs at the same time. The fastest belly fat burner
+                  in this program. Go as fast as humanly possible for 30
+                  seconds.
+                </p>
+                <span class="ex-target">Core + Fat Burn</span>
+                <div class="how-to">
+                  <div class="how-to-title">How To Do It</div>
+                  <div class="how-steps">
+                    <div class="how-step">
+                      <div class="how-sn">1</div>
+                      <div class="how-st">
+                        Get into <strong>push-up plank position</strong>
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">2</div>
+                      <div class="how-st">
+                        Drive <strong>right knee to chest</strong>, quickly
+                        switch to left knee
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">3</div>
+                      <div class="how-st">
+                        Go <strong>as fast as possible</strong> for 30 seconds —
+                        like running horizontally
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">4</div>
+                      <div class="how-st">Rest 20 sec, repeat 4 times</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SATURDAY -->
+      <div class="workout-day">
+        <div class="workout-day-header">
+          <div class="workout-day-title">Saturday — FULL BODY</div>
+          <div class="workout-day-meta">Warrior conditioning · 50 min</div>
+        </div>
+        <div class="exercise-list">
+          <div class="exercise-item">
+            <button class="exercise-toggle" onclick="tog(this)">
+              <div class="ex-num-s">01</div>
+              <div class="ex-ti">
+                <div class="ex-name">Burpees</div>
+                <div class="ex-sets-s">5 × 10 reps</div>
+              </div>
+              <svg
+                class="ex-chev"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="ex-body">
+              <div class="ex-body-in">
+                <p class="ex-desc">
+                  King of full-body fat burning. Burns fat from everywhere
+                  simultaneously. If too hard, skip the push-up in the middle.
+                </p>
+                <span class="ex-target">Full Body + Max Fat Burn</span>
+                <div class="how-to">
+                  <div class="how-to-title">How To Do It</div>
+                  <div class="how-steps">
+                    <div class="how-step">
+                      <div class="how-sn">1</div>
+                      <div class="how-st">
+                        Stand. <strong>Squat down</strong> and place hands on
+                        floor
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">2</div>
+                      <div class="how-st">
+                        <strong>Jump both feet back</strong> to plank position
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">3</div>
+                      <div class="how-st">Do one <strong>push-up</strong></div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">4</div>
+                      <div class="how-st">
+                        <strong>Jump feet forward</strong>, then explode upward
+                        with arms overhead
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <button class="exercise-toggle" onclick="tog(this)">
+              <div class="ex-num-s">02</div>
+              <div class="ex-ti">
+                <div class="ex-name">Jump Lunges</div>
+                <div class="ex-sets-s">4 × 10 each leg</div>
+              </div>
+              <svg
+                class="ex-chev"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="ex-body">
+              <div class="ex-body-in">
+                <p class="ex-desc">
+                  Burns fat from thighs and glutes while building explosive
+                  power. Best lower body fat burner after jump squats.
+                </p>
+                <span class="ex-target">Legs + Glutes</span>
+                <div class="how-to">
+                  <div class="how-to-title">How To Do It</div>
+                  <div class="how-steps">
+                    <div class="how-step">
+                      <div class="how-sn">1</div>
+                      <div class="how-st">
+                        Start in <strong>lunge position</strong> — one foot
+                        forward, one back
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">2</div>
+                      <div class="how-st">
+                        <strong>Jump upward</strong> and switch legs in midair
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">3</div>
+                      <div class="how-st">
+                        <strong>Land softly</strong> in opposite lunge bending
+                        knees to absorb
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">4</div>
+                      <div class="how-st">
+                        Continue switching without stopping
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <button class="exercise-toggle" onclick="tog(this)">
+              <div class="ex-num-s">03</div>
+              <div class="ex-ti">
+                <div class="ex-name">Hollow Body Hold</div>
+                <div class="ex-sets-s">4 × 30 seconds</div>
+              </div>
+              <svg
+                class="ex-chev"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="ex-body">
+              <div class="ex-body-in">
+                <p class="ex-desc">
+                  The gymnast core exercise. Builds the deep core muscles that
+                  pull the stomach flat even when relaxed. This is the secret to
+                  having abs that are visible even resting.
+                </p>
+                <span class="ex-target">Deep Core</span>
+                <div class="how-to">
+                  <div class="how-to-title">How To Do It</div>
+                  <div class="how-steps">
+                    <div class="how-step">
+                      <div class="how-sn">1</div>
+                      <div class="how-st">
+                        Lie on back.
+                        <strong>Press lower back INTO the floor</strong> — this
+                        is the key
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">2</div>
+                      <div class="how-st">
+                        Lift shoulders and legs
+                        <strong>slightly off ground</strong>. Arms stretched
+                        overhead.
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">3</div>
+                      <div class="how-st">
+                        <strong>Hold 30 seconds.</strong> Lower back must stay
+                        pressed to floor the whole time.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUNDAY -->
+      <div class="workout-day">
+        <div class="workout-day-header">
+          <div class="workout-day-title">Sunday — CARDIO + JAWLINE</div>
+          <div class="workout-day-meta">
+            Active recovery + face training · 40 min
+          </div>
+        </div>
+        <div class="exercise-list">
+          <div class="exercise-item">
+            <button class="exercise-toggle" onclick="tog(this)">
+              <div class="ex-num-s">01</div>
+              <div class="ex-ti">
+                <div class="ex-name">Outdoor Walk or Jog</div>
+                <div class="ex-sets-s">30–40 minutes steady</div>
+              </div>
+              <svg
+                class="ex-chev"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="ex-body">
+              <div class="ex-body-in">
+                <p class="ex-desc">
+                  Zone 2 cardio — the fat burning zone. Burns stored fat as fuel
+                  while muscles recover. Walk fast or jog at a pace where you
+                  can still talk.
+                </p>
+                <span class="ex-target">Overall Fat Loss</span>
+                <div class="how-to">
+                  <div class="how-to-title">How To Do It</div>
+                  <div class="how-steps">
+                    <div class="how-step">
+                      <div class="how-sn">1</div>
+                      <div class="how-st">
+                        Walk or jog at a pace where
+                        <strong
+                          >breathing is slightly elevated but you can still
+                          speak</strong
+                        >
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">2</div>
+                      <div class="how-st">
+                        Keep going for
+                        <strong>30–40 minutes without stopping</strong>
+                      </div>
+                    </div>
+                    <div class="how-step">
+                      <div class="how-sn">3</div>
+                      <div class="how-st">
+                        While walking,
+                        <strong>practice mewing and nasal breathing</strong>
+                        from the jawline section below
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- JAWLINE TUTORIAL -->
+    <section class="section" id="jawline">
+      <div class="section-header">
+        <div class="section-num">04</div>
+        <div class="section-title">
+          <small>Full Tutorial</small>Jawline Protocol
+        </div>
+      </div>
+
+      <div class="jaw-intro">
+        Toji's sharp jaw comes from <strong>3 things</strong>: low body fat that
+        reveals the bone, developed masseter muscle that gives the square shape,
+        and correct tongue posture that positions jaw forward. You need all 3.
+        Every step is explained simply below — tap each one.
+      </div>
+
+      <!-- STEP 1 MEWING -->
+      <div class="jaw-card">
+        <div class="jaw-head" onclick="togJaw(this)">
+          <div class="jaw-num">1</div>
+          <div class="jaw-info">
+            <div class="jaw-name">Mewing — Tongue Posture</div>
+            <div class="jaw-freq">All day every day — most important</div>
+          </div>
+          <svg
+            class="jaw-chev"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </div>
+        <div class="jaw-body">
+          <div class="jaw-body-in">
+            <div class="jaw-visual">
+              <svg
+                viewBox="0 0 220 130"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <text
+                  x="10"
+                  y="18"
+                  fill="#c0392b"
+                  font-size="10"
+                  font-family="sans-serif"
+                  font-weight="bold"
+                >
+                  WRONG
+                </text>
+                <text
+                  x="120"
+                  y="18"
+                  fill="#d4a017"
+                  font-size="10"
+                  font-family="sans-serif"
+                  font-weight="bold"
+                >
+                  CORRECT
+                </text>
+                <!-- Left face wrong -->
+                <ellipse
+                  cx="55"
+                  cy="65"
+                  rx="35"
+                  ry="40"
+                  fill="#1a1a1a"
+                  stroke="#333"
+                  stroke-width="1.5"
+                />
+                <path
+                  d="M30 78 Q40 95 55 105 Q70 95 80 78"
+                  fill="#1a1a1a"
+                  stroke="#333"
+                  stroke-width="1"
+                />
+                <!-- Mouth -->
+                <path
+                  d="M40 88 Q55 93 70 88"
+                  stroke="#555"
+                  stroke-width="1.5"
+                />
+                <!-- Tongue low - wrong -->
+                <path
+                  d="M42 92 Q55 100 68 95"
+                  stroke="#c0392b"
+                  stroke-width="2.5"
+                  stroke-dasharray="4,2"
+                />
+                <text
+                  x="22"
+                  y="118"
+                  fill="#c0392b"
+                  font-size="8"
+                  font-family="sans-serif"
+                >
+                  tongue resting LOW
+                </text>
+                <!-- Right face correct -->
+                <ellipse
+                  cx="165"
+                  cy="65"
+                  rx="35"
+                  ry="40"
+                  fill="#1a1a1a"
+                  stroke="#333"
+                  stroke-width="1.5"
+                />
+                <path
+                  d="M140 78 Q150 95 165 105 Q180 95 190 78"
+                  fill="#1a1a1a"
+                  stroke="#333"
+                  stroke-width="1"
+                />
+                <!-- Roof of mouth -->
+                <path
+                  d="M148 72 Q165 66 182 72"
+                  stroke="#d4a017"
+                  stroke-width="2"
+                />
+                <!-- Tongue pressing on roof -->
+                <path
+                  d="M150 75 Q165 69 180 75"
+                  stroke="#d4a017"
+                  stroke-width="2.5"
+                />
+                <!-- Arrow up -->
+                <path
+                  d="M165 90 L165 77"
+                  stroke="#d4a017"
+                  stroke-width="1.5"
+                  marker-end="url(#uparr)"
+                />
+                <defs>
+                  <marker
+                    id="uparr"
+                    markerWidth="6"
+                    markerHeight="6"
+                    refX="3"
+                    refY="3"
+                    orient="auto"
+                  >
+                    <path d="M0,6 L3,0 L6,6 Z" fill="#d4a017" />
+                  </marker>
+                </defs>
+                <text
+                  x="130"
+                  y="118"
+                  fill="#d4a017"
+                  font-size="8"
+                  font-family="sans-serif"
+                >
+                  tongue flat on ROOF
+                </text>
+              </svg>
+            </div>
+            <div class="jaw-steps">
+              <div class="jaw-do">
+                <div class="jaw-dn">1</div>
+                <div class="jaw-dt">
+                  Close your mouth.
+                  <strong
+                    >Lips together, teeth lightly touching or just
+                    apart.</strong
+                  >
+                </div>
+              </div>
+              <div class="jaw-do">
+                <div class="jaw-dn">2</div>
+                <div class="jaw-dt">
+                  Place your
+                  <strong
+                    >ENTIRE tongue flat against the roof of your mouth</strong
+                  >
+                  — not just the tip. The WHOLE tongue including the back part
+                  must press upward.
+                </div>
+              </div>
+              <div class="jaw-do">
+                <div class="jaw-dn">3</div>
+                <div class="jaw-dt">
+                  Your tongue presses upward with
+                  <strong>light constant pressure</strong> — not hard force,
+                  just resting flat up there.
+                </div>
+              </div>
+              <div class="jaw-do">
+                <div class="jaw-dn">4</div>
+                <div class="jaw-dt">
+                  This must become your
+                  <strong>default resting position always</strong> — sitting,
+                  walking, watching TV, sleeping.
+                </div>
+              </div>
+              <div class="jaw-do">
+                <div class="jaw-dn">5</div>
+                <div class="jaw-dt">
+                  You will forget and fall back to old position constantly at
+                  first.
+                  <strong>Just keep correcting yourself</strong> throughout the
+                  day.
+                </div>
+              </div>
+            </div>
+            <div class="jaw-tip">
+              Takes 2–4 weeks to become a habit. After 2–3 months the jaw
+              visually starts moving forward and upward. This is the foundation
+              of all jawline improvement.
+            </div>
+            <div class="jaw-err">
+              Only touching roof with the TIP of tongue. The back third is the
+              most important. Make sure the full tongue lies flat up there.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 NASAL -->
+      <div class="jaw-card">
+        <div class="jaw-head" onclick="togJaw(this)">
+          <div class="jaw-num">2</div>
+          <div class="jaw-info">
+            <div class="jaw-name">Nasal Breathing — Always</div>
+            <div class="jaw-freq">
+              Never breathe through mouth — including sleep
+            </div>
+          </div>
+          <svg
+            class="jaw-chev"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </div>
+        <div class="jaw-body">
+          <div class="jaw-body-in">
+            <div class="jaw-visual">
+              <svg
+                viewBox="0 0 220 100"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <text
+                  x="25"
+                  y="14"
+                  fill="#d4a017"
+                  font-size="10"
+                  font-family="sans-serif"
+                  font-weight="bold"
+                >
+                  ✓ NASAL
+                </text>
+                <text
+                  x="130"
+                  y="14"
+                  fill="#c0392b"
+                  font-size="10"
+                  font-family="sans-serif"
+                  font-weight="bold"
+                >
+                  ✗ MOUTH
+                </text>
+                <!-- Left - nasal -->
+                <circle
+                  cx="55"
+                  cy="55"
+                  r="28"
+                  fill="#1a1a1a"
+                  stroke="#d4a017"
+                  stroke-width="1.5"
+                />
+                <path
+                  d="M55 42 Q52 50 55 56 Q58 50 55 42"
+                  fill="none"
+                  stroke="#d4a017"
+                  stroke-width="2"
+                />
+                <path
+                  d="M42 62 Q55 66 68 62"
+                  stroke="#555"
+                  stroke-width="1.5"
+                />
+                <path
+                  d="M46 60 L38 70"
+                  stroke="#d4a017"
+                  stroke-width="1.5"
+                  marker-end="url(#da)"
+                />
+                <path
+                  d="M64 60 L72 70"
+                  stroke="#d4a017"
+                  stroke-width="1.5"
+                  marker-end="url(#da)"
+                />
+                <defs>
+                  <marker
+                    id="da"
+                    markerWidth="5"
+                    markerHeight="5"
+                    refX="2.5"
+                    refY="2.5"
+                    orient="auto"
+                  >
+                    <path d="M0,0 L5,2.5 L0,5 Z" fill="#d4a017" />
+                  </marker>
+                </defs>
+                <text
+                  x="28"
+                  y="88"
+                  fill="#d4a017"
+                  font-size="8"
+                  font-family="sans-serif"
+                >
+                  air through nose
+                </text>
+                <!-- Right - mouth -->
+                <circle
+                  cx="160"
+                  cy="55"
+                  r="28"
+                  fill="#1a1a1a"
+                  stroke="#c0392b"
+                  stroke-width="1.5"
+                />
+                <path
+                  d="M147 63 Q160 73 173 63"
+                  stroke="#c0392b"
+                  stroke-width="2"
+                />
+                <ellipse
+                  cx="160"
+                  cy="67"
+                  rx="10"
+                  ry="6"
+                  fill="rgba(192,57,43,0.2)"
+                  stroke="#c0392b"
+                  stroke-width="1"
+                />
+                <text
+                  x="130"
+                  y="88"
+                  fill="#c0392b"
+                  font-size="8"
+                  font-family="sans-serif"
+                >
+                  mouth hanging open
+                </text>
+              </svg>
+            </div>
+            <div class="jaw-steps">
+              <div class="jaw-do">
+                <div class="jaw-dn">1</div>
+                <div class="jaw-dt">
+                  During the day: whenever you catch yourself breathing through
+                  mouth, <strong>close it immediately.</strong>
+                </div>
+              </div>
+              <div class="jaw-do">
+                <div class="jaw-dn">2</div>
+                <div class="jaw-dt">
+                  During workouts:
+                  <strong>try to breathe through nose.</strong> It will be hard
+                  at first — your nose will adapt and open up within weeks.
+                </div>
+              </div>
+              <div class="jaw-do">
+                <div class="jaw-dn">3</div>
+                <div class="jaw-dt">
+                  During sleep: if you wake up with dry mouth you are mouth
+                  breathing at night. <strong>Sleep on your side</strong> — this
+                  naturally closes the mouth.
+                </div>
+              </div>
+              <div class="jaw-do">
+                <div class="jaw-dn">4</div>
+                <div class="jaw-dt">
+                  If nose is blocked: breathe through nose anyway.
+                  <strong>The blockage clears faster</strong> when you force
+                  nasal breathing.
+                </div>
+              </div>
+            </div>
+            <div class="jaw-tip">
+              Mouth breathing drops tongue from roof, widens lower face, and
+              causes jaw to hang open — literally destroying jaw definition over
+              years. This one habit alone creates a visible difference within
+              weeks.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 GUM -->
+      <div class="jaw-card">
+        <div class="jaw-head" onclick="togJaw(this)">
+          <div class="jaw-num">3</div>
+          <div class="jaw-info">
+            <div class="jaw-name">Hard Gum Chewing</div>
+            <div class="jaw-freq">20–30 minutes daily — masseter builder</div>
+          </div>
+          <svg
+            class="jaw-chev"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </div>
+        <div class="jaw-body">
+          <div class="jaw-body-in">
+            <div class="jaw-visual">
+              <svg
+                viewBox="0 0 200 120"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <text
+                  x="55"
+                  y="15"
+                  fill="#d4a017"
+                  font-size="10"
+                  font-family="sans-serif"
+                >
+                  BUILD THESE MUSCLES
+                </text>
+                <ellipse
+                  cx="100"
+                  cy="70"
+                  rx="50"
+                  ry="48"
+                  fill="#1a1a1a"
+                  stroke="#333"
+                  stroke-width="1.5"
+                />
+                <ellipse cx="82" cy="55" rx="7" ry="5" fill="#333" />
+                <ellipse cx="118" cy="55" rx="7" ry="5" fill="#333" />
+                <path
+                  d="M90 80 Q100 85 110 80"
+                  stroke="#555"
+                  stroke-width="1.5"
+                />
+                <!-- Masseters highlighted -->
+                <ellipse
+                  cx="66"
+                  cy="82"
+                  rx="14"
+                  ry="18"
+                  fill="rgba(212,160,23,0.2)"
+                  stroke="#d4a017"
+                  stroke-width="2"
+                  stroke-dasharray="4,2"
+                />
+                <ellipse
+                  cx="134"
+                  cy="82"
+                  rx="14"
+                  ry="18"
+                  fill="rgba(212,160,23,0.2)"
+                  stroke="#d4a017"
+                  stroke-width="2"
+                  stroke-dasharray="4,2"
+                />
+                <text
+                  x="42"
+                  y="110"
+                  fill="#d4a017"
+                  font-size="8"
+                  font-family="sans-serif"
+                >
+                  Masseter
+                </text>
+                <text
+                  x="115"
+                  y="110"
+                  fill="#d4a017"
+                  font-size="8"
+                  font-family="sans-serif"
+                >
+                  Masseter
+                </text>
+              </svg>
+            </div>
+            <div class="jaw-steps">
+              <div class="jaw-do">
+                <div class="jaw-dn">1</div>
+                <div class="jaw-dt">
+                  Get <strong>hard chewing gum</strong> — Falim gum (Turkish
+                  brand) or mastic gum is best. Regular Wrigley or Orbit is too
+                  soft and does almost nothing.
+                </div>
+              </div>
+              <div class="jaw-do">
+                <div class="jaw-dn">2</div>
+                <div class="jaw-dt">
+                  Chew for <strong>20–30 minutes continuously</strong> — your
+                  jaw muscles will fatigue and burn. That burn means muscle is
+                  growing.
+                </div>
+              </div>
+              <div class="jaw-do">
+                <div class="jaw-dn">3</div>
+                <div class="jaw-dt">
+                  <strong>Switch sides every 5 minutes</strong> so both sides
+                  develop equally. Do not just chew on one side.
+                </div>
+              </div>
+              <div class="jaw-do">
+                <div class="jaw-dn">4</div>
+                <div class="jaw-dt">
+                  You will feel jaw soreness next day — completely normal. Same
+                  as muscle soreness from working out.
+                  <strong>It means it is working.</strong>
+                </div>
+              </div>
+              <div class="jaw-do">
+                <div class="jaw-dn">5</div>
+                <div class="jaw-dt">
+                  Do this while watching TV or on phone — requires no extra
+                  time.
+                </div>
+              </div>
+            </div>
+            <div class="jaw-tip">
+              The masseter is the jaw muscle that pops out on the sides when you
+              clench. When developed it creates the square jaw shape visible
+              even from a distance. This is what Toji has.
+            </div>
+            <div class="jaw-err">
+              Using regular soft gum like Orbit — way too soft, provides almost
+              zero resistance. You need hard gum or mastic gum. Find it online
+              or in Turkish/Middle Eastern shops.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4 CHIN TUCK -->
+      <div class="jaw-card">
+        <div class="jaw-head" onclick="togJaw(this)">
+          <div class="jaw-num">4</div>
+          <div class="jaw-info">
+            <div class="jaw-name">Chin Tuck Exercise</div>
+            <div class="jaw-freq">3 × 15 reps daily — 2 minutes only</div>
+          </div>
+          <svg
+            class="jaw-chev"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </div>
+        <div class="jaw-body">
+          <div class="jaw-body-in">
+            <div class="jaw-visual">
+              <svg
+                viewBox="0 0 200 110"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <text
+                  x="15"
+                  y="14"
+                  fill="#c0392b"
+                  font-size="9"
+                  font-family="sans-serif"
+                >
+                  HEAD FORWARD = BAD
+                </text>
+                <text
+                  x="108"
+                  y="14"
+                  fill="#d4a017"
+                  font-size="9"
+                  font-family="sans-serif"
+                >
+                  CHIN BACK = GOOD
+                </text>
+                <!-- Wrong: head forward -->
+                <circle
+                  cx="48"
+                  cy="42"
+                  r="20"
+                  fill="#1a1a1a"
+                  stroke="#c0392b"
+                  stroke-width="1.5"
+                />
+                <rect
+                  x="55"
+                  y="62"
+                  width="10"
+                  height="30"
+                  rx="3"
+                  fill="#1a1a1a"
+                  stroke="#555"
+                  stroke-width="1"
+                />
+                <!-- Arrow showing head pushed fwd -->
+                <path
+                  d="M40 50 L28 56"
+                  stroke="#c0392b"
+                  stroke-width="1.5"
+                  opacity="0.7"
+                />
+                <text
+                  x="10"
+                  y="100"
+                  fill="#c0392b"
+                  font-size="8"
+                  font-family="sans-serif"
+                >
+                  jaw hidden
+                </text>
+                <!-- Correct: chin back -->
+                <circle
+                  cx="148"
+                  cy="42"
+                  r="20"
+                  fill="#1a1a1a"
+                  stroke="#d4a017"
+                  stroke-width="1.5"
+                />
+                <rect
+                  x="143"
+                  y="62"
+                  width="10"
+                  height="30"
+                  rx="3"
+                  fill="#1a1a1a"
+                  stroke="#555"
+                  stroke-width="1"
+                />
+                <!-- Arrow showing chin pulled back -->
+                <path
+                  d="M168 44 L158 44"
+                  stroke="#d4a017"
+                  stroke-width="2"
+                  marker-end="url(#ba)"
+                />
+                <defs>
+                  <marker
+                    id="ba"
+                    markerWidth="5"
+                    markerHeight="5"
+                    refX="2.5"
+                    refY="2.5"
+                    orient="auto"
+                  >
+                    <path d="M0,0 L5,2.5 L0,5 Z" fill="#d4a017" />
+                  </marker>
+                </defs>
+                <text
+                  x="118"
+                  y="100"
+                  fill="#d4a017"
+                  font-size="8"
+                  font-family="sans-serif"
+                >
+                  jaw visible
+                </text>
+              </svg>
+            </div>
+            <div class="jaw-steps">
+              <div class="jaw-do">
+                <div class="jaw-dn">1</div>
+                <div class="jaw-dt">
+                  Stand or sit with <strong>back straight</strong>
+                </div>
+              </div>
+              <div class="jaw-do">
+                <div class="jaw-dn">2</div>
+                <div class="jaw-dt">
+                  Pull your chin <strong>straight backward</strong> — like you
+                  are making a double chin. Looks funny. Completely correct.
+                </div>
+              </div>
+              <div class="jaw-do">
+                <div class="jaw-dn">3</div>
+                <div class="jaw-dt">
+                  <strong>Hold for 5 seconds</strong>, feeling a stretch at back
+                  of neck
+                </div>
+              </div>
+              <div class="jaw-do">
+                <div class="jaw-dn">4</div>
+                <div class="jaw-dt">
+                  Release and repeat. Do 15 reps, 3 sets, every day. Takes 2
+                  minutes.
+                </div>
+              </div>
+              <div class="jaw-do">
+                <div class="jaw-dn">5</div>
+                <div class="jaw-dt">
+                  After 4 weeks, make this your
+                  <strong>normal everyday posture</strong> — head back, chin
+                  slightly tucked while walking and sitting.
+                </div>
+              </div>
+            </div>
+            <div class="jaw-tip">
+              Most people do not have a bad jaw — they just have their head
+              pushed forward from sitting, which makes neck skin fold over the
+              jaw and hide it. Fix posture and jaw appears sharper immediately
+              without any fat loss needed.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 5 REDUCE PUFFINESS -->
+      <div class="jaw-card">
+        <div class="jaw-head" onclick="togJaw(this)">
+          <div class="jaw-num">5</div>
+          <div class="jaw-info">
+            <div class="jaw-name">Reduce Face Puffiness</div>
+            <div class="jaw-freq">
+              Daily habits — reveals hidden jaw within days
+            </div>
+          </div>
+          <svg
+            class="jaw-chev"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </div>
+        <div class="jaw-body">
+          <div class="jaw-body-in">
+            <p
+              style="
+                font-size: 12px;
+                color: var(--muted);
+                line-height: 1.7;
+                margin-bottom: 12px;
+              "
+            >
+              Face puffiness hides your jawline even when the jaw bone itself is
+              sharp. Here is what causes it and how to fix it fast:
+            </p>
+            <div class="jaw-steps">
+              <div class="jaw-do">
+                <div class="jaw-dn">1</div>
+                <div class="jaw-dt">
+                  <strong>Drink 3 liters of water daily.</strong> Dehydration
+                  causes face to retain water and look puffy. More water flushes
+                  this out within days.
+                </div>
+              </div>
+              <div class="jaw-do">
+                <div class="jaw-dn">2</div>
+                <div class="jaw-dt">
+                  <strong>Cut salt.</strong> High salt = face retains water.
+                  Avoid chips, packaged food, fast food, instant noodles, extra
+                  salt on food.
+                </div>
+              </div>
+              <div class="jaw-do">
+                <div class="jaw-dn">3</div>
+                <div class="jaw-dt">
+                  <strong>No sugary drinks</strong> — soft drinks, juice, energy
+                  drinks. Switch to water only. Sugar causes inflammation and
+                  face puffiness.
+                </div>
+              </div>
+              <div class="jaw-do">
+                <div class="jaw-dn">4</div>
+                <div class="jaw-dt">
+                  <strong>Sleep on your back or side</strong> — sleeping
+                  face-down compresses face and causes morning puffiness every
+                  day.
+                </div>
+              </div>
+              <div class="jaw-do">
+                <div class="jaw-dn">5</div>
+                <div class="jaw-dt">
+                  <strong>Lose overall body fat</strong> — the fat hiding your
+                  jaw sits in cheeks and under chin. As you lose body fat from
+                  the workouts, your face sharpens automatically.
+                </div>
+              </div>
+            </div>
+            <div class="jaw-tip">
+              Fastest 1-week jawline improvement: drink 3L water every day, cut
+              salt and sugar, do chin tucks. People report looking noticeably
+              sharper within 7 days from just these habits alone.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="jaw-tl">
+        <div class="jaw-tl-title">JAWLINE PROGRESS TIMELINE</div>
+        <div class="jaw-tl-row">
+          <div class="jaw-tl-month">Week 1</div>
+          <div class="jaw-tl-text">
+            Face less puffy from hydration. Chin tuck starts fixing posture. Jaw
+            already looks slightly sharper in photos.
+          </div>
+        </div>
+        <div class="jaw-tl-row">
+          <div class="jaw-tl-month">Month 1</div>
+          <div class="jaw-tl-text">
+            Mewing habit formed. Masseter starting to develop from gum. Posture
+            improved — jaw noticeably sharper.
+          </div>
+        </div>
+        <div class="jaw-tl-row">
+          <div class="jaw-tl-month">Month 3</div>
+          <div class="jaw-tl-text">
+            Body fat dropping from workouts sharpens face. Masseter visible when
+            clenching. Jaw definition clear in photos and real life.
+          </div>
+        </div>
+        <div class="jaw-tl-row">
+          <div class="jaw-tl-month">Month 6</div>
+          <div class="jaw-tl-text">
+            Sharp defined jawline. Masseter muscle pops on sides of face. Toji
+            jaw level achieved.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <section class="section" id="nutrition">
+      <div class="section-header">
+        <div class="section-num">05</div>
+        <div class="section-title"><small>Fuel</small>Nutrition Rules</div>
+      </div>
+      <div class="nutrition-grid">
+        <div class="nutrition-card">
+          <div class="nut-icon">🥩</div>
+          <div class="nut-title">High Protein</div>
+          <div class="nut-text">
+            Eggs, chicken, fish, lentils, paneer daily. Builds muscle while
+            burning fat.
+          </div>
+        </div>
+        <div class="nutrition-card">
+          <div class="nut-icon">🚫</div>
+          <div class="nut-title">Cut These</div>
+          <div class="nut-text">
+            Sugary drinks, fried food, white bread, chips, biscuits. Main source
+            of belly fat.
+          </div>
+        </div>
+        <div class="nutrition-card">
+          <div class="nut-icon">💧</div>
+          <div class="nut-title">3L Water</div>
+          <div class="nut-text">
+            Every day. Reduces hunger, burns fat, removes face puffiness.
+          </div>
+        </div>
+        <div class="nutrition-card">
+          <div class="nut-icon">🕐</div>
+          <div class="nut-title">Skip Breakfast</div>
+          <div class="nut-text">
+            Eat only 12pm–8pm. Morning fast burns stored belly fat.
+          </div>
+        </div>
+        <div class="nutrition-card">
+          <div class="nut-icon">🥗</div>
+          <div class="nut-title">Half Plate Veg</div>
+          <div class="nut-text">
+            Vegetables at every meal. Almost zero calories, keeps you full.
+          </div>
+        </div>
+        <div class="nutrition-card">
+          <div class="nut-icon">😴</div>
+          <div class="nut-title">Sleep 8 Hours</div>
+          <div class="nut-text">
+            Muscle built during sleep. Bad sleep = more belly fat.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <section class="section" id="progress">
+      <div class="section-header">
+        <div class="section-num">06</div>
+        <div class="section-title">
+          <small>The Journey</small>What To Expect
+        </div>
+      </div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-month">Weeks 1–2</div>
+          <div class="tl-text">
+            <strong>Soreness and reactivation.</strong> Dormant muscles wake up.
+            Do half volume only. Posture starts improving.
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-month">Weeks 3–4</div>
+          <div class="tl-text">
+            <strong>First visible changes.</strong> Arms more defined, stomach
+            slightly flatter. Face less puffy. Most people quit here — do not
+            quit.
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-month">Month 2</div>
+          <div class="tl-text">
+            <strong>Real definition appears.</strong> Chest has shape, shoulder
+            caps visible, abs when flexed, veins in forearms starting. People
+            will notice.
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-month">Month 3</div>
+          <div class="tl-text">
+            <strong>Toji foundation complete.</strong> Visible abs, defined
+            chest, lean legs, reduced glute size, forearm vascularity, sharp
+            jaw. Genuinely athletic physique.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <div class="footer-title">SORCERER KILLER PROTOCOL</div>
+      <div class="footer-text">No Equipment · No Excuses · 90 Days</div>
+      <p
+        style="
+          margin-top: 14px;
+          font-size: 11px;
+          color: #444;
+          max-width: 380px;
+          margin-left: auto;
+          margin-right: auto;
+          line-height: 1.7;
+        "
+      >
+        Your only job is to show up 6 days a week. The body you want already
+        exists. You just have to carve away everything that is not it.
+      </p>
+    </div>
+
+    <script>
+      function tog(btn) {
+        const item = btn.closest(".exercise-item");
+        const open = item.classList.contains("open");
+        item
+          .closest(".exercise-list")
+          .querySelectorAll(".exercise-item.open")
+          .forEach((e) => e.classList.remove("open"));
+        if (!open) item.classList.add("open");
+      }
+      function togJaw(hd) {
+        const card = hd.closest(".jaw-card");
+        const open = card.classList.contains("open");
+        document
+          .querySelectorAll(".jaw-card.open")
+          .forEach((e) => e.classList.remove("open"));
+        if (!open) card.classList.add("open");
+      }
+      const secs = document.querySelectorAll("section[id]");
+      const links = document.querySelectorAll(".nav-links a");
+      window.addEventListener("scroll", () => {
+        let cur = "";
+        secs.forEach((s) => {
+          if (window.scrollY >= s.offsetTop - 80) cur = s.id;
+        });
+        links.forEach((a) => {
+          a.classList.toggle("active", a.getAttribute("href") === "#" + cur);
+        });
+      });
+    </script>
+  </body>
+</html>
